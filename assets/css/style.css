@@ -1,0 +1,17 @@
+body {
+	background-color: yellow;
+}
+
+.hmimage {
+    display: block;
+    margin: auto;
+    width: 60%;
+}
+
+#userInput {
+	width: 40px;
+}
+
+#guessWord {
+	font-size: 48px;
+}

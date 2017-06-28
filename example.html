@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Hang-Man Game</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  </head>
+<body>
+<script type="text/javascript">
+function checkLetter() {
+    // Retrieving the letter
+    var letter = document.getElementById("HangManInput").value;
+    if (isAlphaNumeric(letter)) {
+    // Saving the guessWord for later comparison
+    var prevGuessWord = guessWord;
+    // Declaring character arrays
+    var wordLetters = new Array;
+    var guessWordLetters = new Array;
+    // Filling the wordLetters array with the characters of the word
+    // that needs to be guessed
+    for (i = 0; i < theWord.length; i++) {
+    wordLetters[i] = theWord.substr(i, 1);
+    }
+    // Filling the guessWordLetters array with the character of the guessWord
+    for (d = 0; d < guessWord.length; d++) {
+    guessWordLetters[d] = guessWord.substr(d, 1);
+    }
+
+    // Checking wether the guess letter is in theWord, and if it is
+    // replace the dot in the guessWord
+    for (x = 0; x < theWord.length; x++) {
+    if (wordLetters[x] == letter) {
+    guessWordLetters[x] = letter;
+    }
+    }
+    // Replacing the guessWord with the character array guessWOrdLetters
+    // It gets replaced and it's different (a letter was guess) the word will be updated
+    // else it will not be changed and the error amount will be raised
+    guessWord = "";
+    for (c = 0; c < prevGuessWord.length; c++) {
+    guessWord += guessWordLetters[c];
+    }
+    if (guessWord == prevGuessWord && error_amount < 9 && guessWord != theWord) {
+    error_amount++;
+    } else {
+    updateWord(guessWord);
+    }
+    if ((guessWord == theWord) || error_amount >= 9) {
+    if (error_amount >= 9) {
+    showMessage("You lost! <span style='cursor:pointer; text-decoration:underline;' onclick='initGame()'>Try again?</span>");
+    updateWord(theWord);
+    }
+    if (guessWord == theWord) {
+    showMessage("You won! <span style='cursor:pointer; text-decoration:underline;' onclick='initGame()'>Try again?</span>");
+    }
+    }
+    document.getElementById("HangManInput").value = "";
+    document.getElementById("HangManInput").focus();
+    } else {
+    if ((guessWord != theWord) && error_amount < 9) {
+    showMessage("Only letters are allowed!");
+    }
+    document.getElementById("HangManInput").value = "";
+    document.getElementById("HangManInput").focus();
+    }
+} // End of checkLetter(letter) function
+
+</script>
+</body>
+</html>

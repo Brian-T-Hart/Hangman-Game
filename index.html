@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Hang-Man Game</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  </head>
+
+  <body>
+        <div class="container-fluid">
+            <div class="col-md-10 col-lg-12 col-md-offset-1 col-lg-offset-1">
+            </div>
+                <h4>Instructions</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-5 col-lg-5 col-md-offset-1 col-lg-offset-1">
+                <h1 id="title" class="text-center">Hang-Man Game</h1>
+                <p class="text-center"><button id="begin" type="button" class="btn btn-primary text-center" onclick="initGame()">Click to Begin</button></p>
+                <img class="hmimage" src="assets/images/hangman_simple.jpg">
+                <h1 id="guessWord" class="text-center"></h1>
+                <br>
+            </div>
+            <div class="col-md-5 col-lg-5">
+                <h3 class="text-center">Guess a letter: <input type="text" class="text-center" maxlength="1" id="userInput" onkeyup="getLetter()"></h3>
+                <!-- <div class="text-center"><input type="text" id="HangManInput" onkeyup="getLetter()"></div> -->
+                <div><h2 id="HangManMessage" class="text-center"></h2></div>
+                <!-- <h3 class="text-center">Choose a letter</h3> -->
+                <h2 class="text-center">The word: <br><span id="theWord"></span><br /></h2>
+                <br>
+                
+                <h4 class="text-center">Remaining Incorrect Guesses: <span id="remainingGuesses"></h4>
+                </div>
+
+            </div>
+        </div>
+
+
+
+<!--Javascript-->
+    <script type="text/javascript">
+var letter = "";
+var theWord = "";
+var guessWord = "";
+var message = "";
+var remainingGuesses = 6;
+var words = ["CAMRY", "ULTIMA", "PATHFINDER", "PILOT", "DURANGO"];
+var letterChoice = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+
+function getWord() {
+    var randomNumber = Math.floor(Math.random() * words.length);
+    theWord = words[randomNumber];
+    // console.log(theWord);
+    var str = theWord;
+    var n = str.length;
+    var m = n - 1;
+    // console.log('the string is ' + n + 'digits');
+    // console.log(m);
+    var str = "_ ";
+    document.getElementById("guessWord").innerHTML = str.repeat(m);
+    // console.log(guessWord);
+    // showGuessWord();
+}
+
+function showMessage(message) {
+    document.getElementById("HangManMessage").innerHTML = message;
+}
+
+function showGuessWord() {
+    document.getElementById("guessWord").innerHTML = guessWord;
+}
+
+function showRemainingGuesses() {
+    document.getElementById("remainingGuesses").innerHTML = remainingGuesses;
+}
+
+function updateWord(word) {
+    document.getElementById("theWord").innerHTML = theWord;
+
+}
+
+function isAlphaNumeric(str){
+    var regExp = /[^a-zA-Z]/g
+     if (regExp.test(str)) {
+        return false;
+    }
+     else {
+        return true;
+  }
+}
+
+function initGame() {
+    // Resetting all variables
+    var theWord = ""; 
+    var guessWord = "";
+    var remainingGuesses = 6;
+    showMessage("Choose a Letter");
+    updateWord("");
+}
+
+function getLetter() {
+    x = document.getElementById("userInput");
+    x.value = x.value.toUpperCase();
+    letter = x.value;
+    if (isAlphaNumeric(letter)) {
+        console.log('the letter is ' + letter);
+        var str = theWord;
+        var n = str.includes(letter);
+        if (n === true) {
+            var str = theWord;
+            var m = str.indexOf(letter);
+            console.log('index of the letter is ' + m);
+            showMessage('Good choice');
+
+
+
+        }
+        
+        if (n === false && remainingGuesses > 0) {
+            showMessage('BUMMER DUDE!');
+            remainingGuesses--;
+            showRemainingGuesses();
+
+        // console.log(remainingGuesses);
+
+        }
+    // else {
+    //     showMessage('Invalid Entry');
+    // }
+}
+}
+
+
+// function checkLetter() {
+//     letter === letter;
+//     console.log('checking letter ' + letter);
+    // var wordLetters = new Array;
+    //     for (i = 0; i < theWord.length; i++) {
+    //     wordLetters[i] = theWord.substr(i, 1);
+    //     }
+    // var guessWordLetters = new Array;
+    //     for (d = 0; d < guessWord.length; d++) {
+    //     guessWordLetters[d] = guessWord.substr(d, 1);
+    //     }
+    // for (x = 0; x < theWord.length; x++) {
+    //     if (theWord[x] == letter) {
+    //         console.log('match');
+        //     }
+        // }
+
+initGame();
+showRemainingGuesses();
+getWord();
+updateWord();
+getLetter();
+
+ 
+
+
+
+// var letter = document.getElementById("").value;
+// console.log(letter);
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
