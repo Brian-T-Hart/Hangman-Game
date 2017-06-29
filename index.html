@@ -41,6 +41,7 @@
 
 <!--Javascript-->
     <script type="text/javascript">
+var hiddenLetters = "";
 var letter = "";
 var theWord = "";
 var guessWord = "";
@@ -54,14 +55,12 @@ function getWord() {
     var randomNumber = Math.floor(Math.random() * words.length);
     theWord = words[randomNumber];
     // console.log(theWord);
-    var str = theWord;
-    var n = str.length;
-    var m = n - 1;
+    var n = theWord.length;
     // console.log('the string is ' + n + 'digits');
     // console.log(m);
-    var str = "_ ";
-    document.getElementById("guessWord").innerHTML = str.repeat(m);
-    // console.log(guessWord);
+    hiddenLetters = "_ ";
+    document.getElementById("guessWord").innerHTML = hiddenLetters.repeat(n);
+    console.log(guessWord);
     // showGuessWord();
 }
 
@@ -94,11 +93,21 @@ function isAlphaNumeric(str){
 
 function initGame() {
     // Resetting all variables
-    var theWord = ""; 
-    var guessWord = "";
-    var remainingGuesses = 6;
-    showMessage("Choose a Letter");
+    theWord = ""; 
+    guessWord = "";
+    remainingGuesses = 6;
+    showMessage("Choose A Letter");
     updateWord("");
+}
+
+function main() {
+    if (remainingGuesses === 0) {
+    showMessage('Game Over!');
+    }
+
+    if (remainingGuesses > 0) {
+        getLetter();
+    }
 }
 
 function getLetter() {
@@ -114,48 +123,29 @@ function getLetter() {
             var m = str.indexOf(letter);
             console.log('index of the letter is ' + m);
             showMessage('Good choice');
-
-
-
         }
         
-        if (n === false && remainingGuesses > 0) {
+        else {
             showMessage('BUMMER DUDE!');
             remainingGuesses--;
             showRemainingGuesses();
-
-        // console.log(remainingGuesses);
-
         }
-    // else {
-    //     showMessage('Invalid Entry');
-    // }
-}
+    }
+
+    else {
+        showMessage('Invalid Entry!')
+        getLetter();
+    }    
 }
 
-
-// function checkLetter() {
-//     letter === letter;
-//     console.log('checking letter ' + letter);
-    // var wordLetters = new Array;
-    //     for (i = 0; i < theWord.length; i++) {
-    //     wordLetters[i] = theWord.substr(i, 1);
-    //     }
-    // var guessWordLetters = new Array;
-    //     for (d = 0; d < guessWord.length; d++) {
-    //     guessWordLetters[d] = guessWord.substr(d, 1);
-    //     }
-    // for (x = 0; x < theWord.length; x++) {
-    //     if (theWord[x] == letter) {
-    //         console.log('match');
-        //     }
-        // }
+        
 
 initGame();
+showMessage('Choose A Letter');
 showRemainingGuesses();
 getWord();
 updateWord();
-getLetter();
+main();
 
  
 
