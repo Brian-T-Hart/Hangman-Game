@@ -23,14 +23,18 @@
          span exists when we try to access it. -->
     <script type="text/javascript">
       // Let's start by grabbing a reference to the <span> below.
-      var userText = document.getElementById("user-text");
+      // var userText = document.getElementById("user-text");
 
-      // Next, we give JavaScript a function to execute when onkeyup event fires.
-      document.onkeyup = function(event) {
-        userText.textContent = event.key;
-        letter = event.key;
-        getletter();
-        // console.log(letter);
+      // // Next, we give JavaScript a function to execute when onkeyup event fires.
+      // document.onkeyup = function(event) {
+      //   userText.textContent = event.key;
+      //   letter = event.key;
+      //   // console.log(letter);
+
+        var fruits = ["Banana", "Orange", "Apple", "Mango"];
+        console.log(fruits);
+        fruits.fill("Kiwi",1,2);
+        console.log(fruits);
       };
     </script>
   </body>

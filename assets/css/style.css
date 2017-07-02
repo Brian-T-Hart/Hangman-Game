@@ -1,17 +1,55 @@
 body {
-	background-color: yellow;
+	background-color: #fff;
+	padding: 20px;
+}
+
+h1 {
+	color: #e02929;
+
+}
+
+h2 {
+	font-size: 32px;
+}
+
+#title {
+	margin-top: 40px;
+	font-size: 64px;
+	color: #e02929;
+}
+
+#buttonRow {
+	margin-top: 100px;
+}
+
+#begin {
+	font-size: 30px;
+	padding: 10px;
 }
 
 #hmimage {
     display: block;
     margin: auto;
+    margin-top: 0px;
     width: 60%;
+    height: auto;
+    border: 4px solid black;
 }
 
-#userInput {
-	width: 40px;
+#user-text {
+	visibility: hidden;
 }
 
-#guessWord {
-	font-size: 48px;
+#hiddenLettersArray {
+	font-size: 64px;
 }
+
+#HangManMessage {
+	margin: auto;
+	margin-top: 50px;
+	color: #aaa;
+	font-size: 54px;
+	padding: 20px;
+}
+
+

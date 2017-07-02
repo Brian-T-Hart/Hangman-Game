@@ -10,34 +10,19 @@
   </head>
 
   <body>
-        <div class="container-fluid">
-            <div class="col-md-10 col-lg-12 col-md-offset-1 col-lg-offset-1">
-            </div>
-                <h4>Instructions</h4>
-        </div>
         <div class="row">
             <div class="col-md-5 col-lg-5 col-md-offset-1 col-lg-offset-1">
+                <p id="buttonRow" class="text-center"><button id="begin" type="button" class="btn btn-primary btn-large text-center" onclick="initGame()">Start Game</button></p>
                 <h1 id="title" class="text-center">Hang-Man Game</h1>
-                <p class="text-center"><button id="begin" type="button" class="btn btn-primary text-center" onclick="initGame()">Click to Begin</button></p>
-                <img id="hmimage" src="assets/images/6.jpg" alt="Hangman Image">
+                <h2 id="subtitle" class="text-center">Category: Car Models</h2>
+                <h2 id="HangManMessage" class="text-center"></h2>
+                <div><img id="hmimage" src="assets/images/6.jpg" alt="Hangman Image"></div>
+                <h1 id="hiddenLettersArray" class="text-center" ></h1>
                 <h1 id="guessWord" class="text-center"></h1>
-                <br>
-            </div>
-            <div class="col-md-5 col-lg-5">
-                <h3 class="text-center">Guess a letter: <span id="user-text"></span></h3>
-                <!-- <div class="text-center"><input type="text" id="HangManInput" onkeyup="getLetter()"></div> -->
-                <div><h2 id="HangManMessage" class="text-center"></h2></div>
-                <!-- <h3 class="text-center">Choose a letter</h3> -->
-                <h2 class="text-center">The word: <br><span id="theWord"></span><br /></h2>
-                <br>
-                
+                <p class="text-center"><span id="user-text"></span></p>
                 <h4 class="text-center">Remaining Incorrect Guesses: <span id="remainingGuesses"></h4>
-                </div>
-
             </div>
         </div>
-
-      
 
 <!--Javascript-->
     <script type="text/javascript">
@@ -48,43 +33,39 @@ var n = "";
 var p = "";
 var x = "";
 var hiddenLetters = "";
+var hiddenLettersArray = [];
+var hiddenLettersString = "";
 var letter = "";
 var theWord = "";
-var guessWord = "";
+var theWordArray = [];
+var theWordString = "";
 var message = "";
 var randomNumber = "";
 var remainingGuesses = 6;
 var words = ["CAMRY", "ULTIMA", "PATHFINDER", "PILOT", "DURANGO"];
-var letterChoice = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+// var letterChoice = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 
 function getWord() {
     randomNumber = Math.floor(Math.random() * words.length);
     theWord = words[randomNumber];
-    // console.log(theWord);
     n = theWord.length;
-    // console.log('the string is ' + n + 'digits');
-    // console.log(m);
-    hiddenLetters = "_ ";
-    document.getElementById("guessWord").innerHTML = hiddenLetters.repeat(n);
-    console.log(guessWord);
-    // showGuessWord();
-}
+    console.log('the string is ' + n + ' digits');
+    hiddenLettersArray.length = n;
+    hiddenLettersArray.fill('_');
+    document.getElementById("hiddenLettersArray").innerHTML = hiddenLettersArray;
+    theWordArray.length = n;
+        for (var i  = 0; i < theWordArray.length; i++) {
+                theWordArray[i] = theWord.charAt(i);
+            }
+        }
 
 function showMessage(message) {
     document.getElementById("HangManMessage").innerHTML = message;
 }
 
-function showGuessWord() {
-    document.getElementById("guessWord").innerHTML = guessWord;
-}
-
 function showRemainingGuesses() {
     document.getElementById("remainingGuesses").innerHTML = remainingGuesses;
-}
-
-function updateWord(word) {
-    document.getElementById("theWord").innerHTML = theWord;
 }
 
 function isAlphaNumeric(str){
@@ -102,65 +83,75 @@ function changeImage() {
     document.getElementById("hmimage").src = a;
 }
 
+function youWin() {
+    showMessage('YOU WIN!!!');
+    remainingGuesses = -1;
+}
+
+function gameOver() {
+    showMessage('Game Over!!!');
+
+}
+
+// Resetting all variables
 function initGame() {
-    // Resetting all variables
-    a = ""
+    a = "";
     m = "";
     n = "";
     p = "";
     x = "";
     hiddenLetters = "";
+    hiddenLettersArray = [];
+    hiddenLettersString = "";
     letter = "";
     theWord = "";
-    guessWord = "";
+    theWordArray = [];
+    theWordString = "";
     message = "";
+    randomNumber = "";
     remainingGuesses = 6;
-    showMessage("Choose A Letter");
+    showMessage("Choose A Letter!");
     getWord();
-    updateWord();
     showRemainingGuesses();
     changeImage();
 }
 
-        
+showMessage('Press the blue button to begin!');
+
 document.onkeyup = function(event) {
+    if (remainingGuesses > 0) {
         userText.textContent = event.key;
         letter = event.key;
-        console.log(letter);
         letter = letter.toUpperCase();
-        // letter = x.value;
         if (isAlphaNumeric(letter)) {
-            console.log('the letter is ' + letter);
-            // var str = theWord;
             p = theWord.includes(letter);
             if (p === true) {
-                // var str = theWord;
                 m = theWord.indexOf(letter);
-                console.log('index of the letter is ' + m);
-                showMessage('Good choice');
+                showMessage('Good choice!!!');
+                hiddenLettersArray[m] = letter;
+                document.getElementById("hiddenLettersArray").innerHTML = hiddenLettersArray;
+                hiddenLettersString = hiddenLettersArray.join();
+                theWordString = theWordArray.join();
+                if (hiddenLettersString === theWordString) {
+                    youWin();
+                }
             }
             
             else {
-                showMessage('BUMMER DUDE!');
+                showMessage('Bummer! Try again!');
                 remainingGuesses--;
                 showRemainingGuesses();
                 changeImage();
                     if (remainingGuesses === 0) {
-                        showMessage('Game Over!');
-                        main();
+                        gameOver();
                     }
             }
         }
+
         else {
             showMessage('Invalid Entry!')
     }    
-
-
-};
-
-
- 
-
+}};
 
 </script>
 </body>
