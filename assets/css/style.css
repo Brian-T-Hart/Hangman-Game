@@ -30,10 +30,10 @@ h2 {
 #hmimage {
     display: block;
     margin: auto;
-    margin-top: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
     width: 60%;
     height: auto;
-    border: 4px solid black;
 }
 
 #user-text {
@@ -47,9 +47,32 @@ h2 {
 #HangManMessage {
 	margin: auto;
 	margin-top: 50px;
+	margin-bottom: 0;
 	color: #aaa;
 	font-size: 54px;
 	padding: 20px;
 }
 
+#hiddenLettersArray {
+	margin-top: 0;
+	margin-bottom: 10px;
+	position: relative;
+	top: -20px;
+}
+
+#remainingIncorrectGuesses {
+	padding: 20px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#remainingGuesses {
+	padding: 10px;
+	font-size: 32px;
+	margin-top: 0px;
+}
+
+#incorrectGuesses {
+	margin-top: 30px;
+}
 

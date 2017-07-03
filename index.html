@@ -16,11 +16,15 @@
                 <h1 id="title" class="text-center">Hang-Man Game</h1>
                 <h2 id="subtitle" class="text-center">Category: Car Models</h2>
                 <h2 id="HangManMessage" class="text-center"></h2>
+            </div>
+            <div class="col-md-5 col-lg-5">
                 <div><img id="hmimage" src="assets/images/6.jpg" alt="Hangman Image"></div>
                 <h1 id="hiddenLettersArray" class="text-center" ></h1>
-                <h1 id="guessWord" class="text-center"></h1>
                 <p class="text-center"><span id="user-text"></span></p>
-                <h4 class="text-center">Remaining Incorrect Guesses: <span id="remainingGuesses"></h4>
+                <h3 id="remainingIncorrectGuesses" class="text-center">Remaining Incorrect Guesses: </h3>
+                <h2 class="text-center" id="remainingGuesses"></h2>
+                <h2 id="incorrectGuesses" class="text-center">Incorrect Guesses:</h2>
+                <h3 class="text-center" id="wrongLetters"></h3>
             </div>
         </div>
 
@@ -42,7 +46,8 @@ var theWordString = "";
 var message = "";
 var randomNumber = "";
 var remainingGuesses = 6;
-var words = ["CAMRY", "ULTIMA", "PATHFINDER", "PILOT", "DURANGO"];
+var wrongLetters = [];
+var words = ["CAMRY", "ULTIMA", "PATHFINDER", "PILOT", "DURANGO", "BUG", "ESCORT", "CAMERO"];
 // var letterChoice = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 
@@ -78,6 +83,11 @@ function isAlphaNumeric(str){
   }
 }
 
+// function wrongLetters() {
+//     wrongLetters.push(letter);
+//     document.getElementById("wrongLetters").innerHTML = wrongLetters;
+// }
+
 function changeImage() {
     a = "assets/images/" + remainingGuesses + ".jpg";
     document.getElementById("hmimage").src = a;
@@ -110,6 +120,8 @@ function initGame() {
     message = "";
     randomNumber = "";
     remainingGuesses = 6;
+    wrongLetters = [];
+    document.getElementById("wrongLetters").innerHTML = wrongLetters;
     showMessage("Choose A Letter!");
     getWord();
     showRemainingGuesses();
@@ -117,39 +129,47 @@ function initGame() {
 }
 
 showMessage('Press the blue button to begin!');
-
 document.onkeyup = function(event) {
-    if (remainingGuesses > 0) {
         userText.textContent = event.key;
         letter = event.key;
         letter = letter.toUpperCase();
+    if (remainingGuesses > 0) {
         if (isAlphaNumeric(letter)) {
-            p = theWord.includes(letter);
-            if (p === true) {
-                m = theWord.indexOf(letter);
-                showMessage('Good choice!!!');
-                hiddenLettersArray[m] = letter;
-                document.getElementById("hiddenLettersArray").innerHTML = hiddenLettersArray;
-                hiddenLettersString = hiddenLettersArray.join();
-                theWordString = theWordArray.join();
-                if (hiddenLettersString === theWordString) {
-                    youWin();
+            x = wrongLetters.includes(letter);
+                if (x === true) {
+                    showMessage('Letter already chosen. Try again.');
                 }
-            }
+                else {
+                    p = theWord.includes(letter);
+                        if (p === true) {
+                            m = theWord.indexOf(letter);
+                            showMessage('Good choice!!!');
+                            hiddenLettersArray[m] = letter;
+                            document.getElementById("hiddenLettersArray").innerHTML = hiddenLettersArray;
+                            hiddenLettersString = hiddenLettersArray.join();
+                            theWordString = theWordArray.join();
+                            if (hiddenLettersString === theWordString) {
+                                youWin();
+                            }
+                        }
+                    
             
             else {
                 showMessage('Bummer! Try again!');
                 remainingGuesses--;
                 showRemainingGuesses();
+                wrongLetters.push(letter);
+                console.log(wrongLetters);
+                document.getElementById("wrongLetters").innerHTML = wrongLetters;
                 changeImage();
                     if (remainingGuesses === 0) {
                         gameOver();
                     }
             }
         }
-
+    }
         else {
-            showMessage('Invalid Entry!')
+            showMessage('Invalid Entry!');
     }    
 }};
 
