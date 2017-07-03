@@ -32,8 +32,9 @@ h2 {
     margin: auto;
     margin-top: 0;
     margin-bottom: 0;
-    width: 60%;
+    width: 55%;
     height: auto;
+    padding: 0px;
 }
 
 #user-text {

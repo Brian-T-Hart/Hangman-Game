@@ -28,14 +28,14 @@
             </div>
         </div>
 
-<!--Javascript-->
-    <script type="text/javascript">
+<script type="text/javascript" >
 var userText = document.getElementById("user-text");
 var a = "";
 var m = "";
 var n = "";
 var p = "";
 var x = "";
+var y = "";
 var hiddenLetters = "";
 var hiddenLettersArray = [];
 var hiddenLettersString = "";
@@ -48,8 +48,6 @@ var randomNumber = "";
 var remainingGuesses = 6;
 var wrongLetters = [];
 var words = ["CAMRY", "ULTIMA", "PATHFINDER", "PILOT", "DURANGO", "BUG", "ESCORT", "CAMERO"];
-// var letterChoice = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
 
 function getWord() {
     randomNumber = Math.floor(Math.random() * words.length);
@@ -83,11 +81,6 @@ function isAlphaNumeric(str){
   }
 }
 
-// function wrongLetters() {
-//     wrongLetters.push(letter);
-//     document.getElementById("wrongLetters").innerHTML = wrongLetters;
-// }
-
 function changeImage() {
     a = "assets/images/" + remainingGuesses + ".jpg";
     document.getElementById("hmimage").src = a;
@@ -100,7 +93,6 @@ function youWin() {
 
 function gameOver() {
     showMessage('Game Over!!!');
-
 }
 
 // Resetting all variables
@@ -110,6 +102,7 @@ function initGame() {
     n = "";
     p = "";
     x = "";
+    y = "";
     hiddenLetters = "";
     hiddenLettersArray = [];
     hiddenLettersString = "";
@@ -136,7 +129,8 @@ document.onkeyup = function(event) {
     if (remainingGuesses > 0) {
         if (isAlphaNumeric(letter)) {
             x = wrongLetters.includes(letter);
-                if (x === true) {
+            y = hiddenLettersArray.includes(letter);
+                if (x === true || y === true) {
                     showMessage('Letter already chosen. Try again.');
                 }
                 else {
@@ -159,7 +153,6 @@ document.onkeyup = function(event) {
                 remainingGuesses--;
                 showRemainingGuesses();
                 wrongLetters.push(letter);
-                console.log(wrongLetters);
                 document.getElementById("wrongLetters").innerHTML = wrongLetters;
                 changeImage();
                     if (remainingGuesses === 0) {
@@ -176,10 +169,3 @@ document.onkeyup = function(event) {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
